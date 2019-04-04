@@ -13,7 +13,7 @@ def get_path(data, model, crop, resize):
     else:
         #tfrecord = os.getenv('TFRECORD', './datasets/tfrecords/%s-c%i-r%i.tfrecord' % (data, crop, resize))
         ckpt = os.getenv('CHECKPOINT', './checkpoint/%s-%s-c%i-r%i' % (model, data, crop, resize))
-    param = os.getenv('HYPERPARAMETER', './bin/hyperparameter/%s-%s.toml' % (model, data))
+    param = os.getenv('HYPERPARAMETER', './hyperparameter/%s-%s.toml' % (model, data))
     tfrecord = "datasets/hanzi_00000-of-00001.tfrecord"
     return tfrecord, ckpt, param
 
