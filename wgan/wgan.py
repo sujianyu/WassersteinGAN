@@ -5,7 +5,7 @@ from PIL import Image
 from .util import create_log
 from .base_model import BaseModel
 from .dataset_tool import tfrecord_parser
-
+from .dataset_tool import TFRecorder
 
 class WassersteinGAN:
 
