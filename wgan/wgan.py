@@ -92,7 +92,8 @@ class WassersteinGAN:
 
         # load tfrecord instance
         self.__tfrecord_name = tf.placeholder(tf.string, name='tfrecord_dataset_name')
-        data_set_api = tf.data.TFRecordDataset(self.__tfrecord_name, compression_type='GZIP')
+        #data_set_api = tf.data.TFRecordDataset(self.__tfrecord_name, compression_type='GZIP')
+        data_set_api = tf.data.TFRecordDataset(self.__tfrecord_name)
         # convert record to tensor
         data_set_api = data_set_api.map(tfrecord_parser(self.__config['image_shape']), self.__n_thread)
         # set batch size

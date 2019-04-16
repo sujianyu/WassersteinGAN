@@ -9,7 +9,7 @@ PATH_DATA = dict(
     celeba='./datasets/celeba/img/img_align_celeba',
     lsun='./datasets/lsun/train',
     celeba_v1='./datasets/celeba_v1/128_crop',
-    hanzi = ""
+    hanzi_resize = "../datasets/hanzi_resize"
 )
 
 
@@ -51,25 +51,23 @@ def convert_to(data_path, name):
     Converts s dataset to tfrecords
     """
 
-    rows = 64
-    cols = 64
+    rows = 128
+    cols = 128
     depth = DEPTH
-    # 循环 12 次，产生 12 个 .tfrecords 文件
-    for ii in range(12):
-        writer = tf.python_io.TFRecordWriter(name + str(ii) + '.tfrecords')
-        # 每个 tfrecord 文件有 16384 个图片
-        for img_name in os.listdir(data_path)[ii*16384 : (ii+1)*16384]:
+    for ii in range(1):
+        writer = tf.python_io.TFRecordWriter(name + '.tfrecord')
+        for img_name in os.listdir(data_path):
             # 打开图片
             img_path = data_path + img_name
             img = Image.open(img_path)
             # 设置裁剪参数
-            h, w = img.size[:2]
-            j, k = (h - OUTPUT_SIZE) / 2, (w - OUTPUT_SIZE) / 2
-            box = (j, k, j + OUTPUT_SIZE, k+ OUTPUT_SIZE)
+            #h, w = img.size[:2]
+            #j, k = (h - OUTPUT_SIZE) / 2, (w - OUTPUT_SIZE) / 2
+            #box = (j, k, j + OUTPUT_SIZE, k+ OUTPUT_SIZE)
             # 裁剪图片
-            img = img.crop(box = box)
+            #img = img.crop(box = box)
             # image resize
-            img = img.resize((rows,cols))
+            #img = img.resize((rows,cols))
             # 转化为字节
             img_raw = img.tobytes()
             # 写入到 Example
@@ -85,8 +83,8 @@ def convert_to(data_path, name):
 if __name__ == '__main__':
 
     current_dir = os.getcwd()
-    data_path = current_dir + '/data/img_align_celeba/'
-    name = current_dir + '/data/img_align_celeba_tfrecords/train'
+    data_path = '../datasets/hanzi_resize/'
+    name = '../datasets/hanzi_resize'
     start_time = time.time()
 
     print('Convert start')
@@ -96,7 +94,7 @@ if __name__ == '__main__':
 
     print('\n' * 2)
     print('Convert done, take %.2f seconds' % (time.time() - start_time))
-    recorder.create(
-        crop_value=args.crop,
-        resize_value=args.resize
-    )
+    # recorder.create(
+    #     crop_value=args.crop,
+    #     resize_value=args.resize
+    # )
